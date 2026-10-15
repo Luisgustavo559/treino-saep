@@ -1,0 +1,42 @@
+{
+  "name": "saep_treino",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@netlify/database": "^2.0.1",
+    "@netlify/functions": "^6.0.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "drizzle-orm": "^1.0.0-beta.22",
+    "express": "^5.3.0",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.6",
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "drizzle-kit": "^1.0.0-beta.22",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "description": "O frontend continua em `public`. A API publicada usa Netlify Functions e o banco gerenciado PostgreSQL da Netlify, com esquema Drizzle e migrações em `netlify/database/migrations`.",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guitinz11/saep_treino1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guitinz11/saep_treino1/issues"
+  },
+  "homepage": "https://github.com/Guitinz11/saep_treino1#readme"
+}
