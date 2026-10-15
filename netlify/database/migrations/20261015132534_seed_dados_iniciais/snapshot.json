@@ -1,0 +1,214 @@
+{
+  "id": "25c98f1a-dd61-479d-994d-125674cb3568",
+  "prevIds": [
+    "9df2c38f-c680-428d-8187-85d3183f7b66"
+  ],
+  "version": "8",
+  "dialect": "postgres",
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "movimentacoes",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "produtos",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "movimentacoes"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "data",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "movimentacoes"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "tipo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "movimentacoes"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "quantidade",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "movimentacoes"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "produtos_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "movimentacoes"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produtos"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nome",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produtos"
+    },
+    {
+      "type": "numeric(10,2)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "valor",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produtos"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "quantidade",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produtos"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "categoria",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produtos"
+    },
+    {
+      "type": "varchar(30)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "unidade_medida",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produtos"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "produtos_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "produtos",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "movimentacoes_produtos_id_produtos_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "movimentacoes"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "movimentacoes_pkey",
+      "schema": "public",
+      "table": "movimentacoes",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "produtos_pkey",
+      "schema": "public",
+      "table": "produtos",
+      "entityType": "pks"
+    },
+    {
+      "definition": "select id, nome, quantidade, valor, quantidade * valor as valor_total, categoria from produtos",
+      "with": null,
+      "withNoData": null,
+      "using": null,
+      "tablespace": null,
+      "materialized": false,
+      "name": "vw_estoque",
+      "entityType": "views",
+      "schema": "public"
+    }
+  ],
+  "renames": []
+}

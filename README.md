@@ -6,13 +6,13 @@ O frontend continua em `public`. A API publicada usa Netlify Functions e o banco
 
 Este projeto foi configurado como uma demonstração com API pública e login visual, sem autenticação de servidor. Cadastre somente produtos e movimentações fictícios. Os registros de teste ficam no PostgreSQL da Netlify; não há conexão automática com o MySQL do seu computador.
 
-Nenhum dado do MySQL local foi importado ou alterado. O banco novo começa vazio, sem dados de exemplo automáticos. Há um aviso de ambiente de testes tanto na tela de login quanto no painel. Antes de importar dados reais, implemente autenticação de servidor e proteja a API.
+Nenhum dado do MySQL local foi importado ou alterado. O banco novo começa com os dados iniciais do `sql/DDL.sql` (Caderno, Caneta e Arroz, com suas entradas), aplicados por migração, e com a view `vw_estoque`. Há um aviso de ambiente de testes tanto na tela de login quanto no painel. Antes de importar dados reais, implemente autenticação de servidor e proteja a API.
 
 ## Desenvolvimento
 
 Instale as dependências com `npm install` e execute `npm run dev`. Abra `http://localhost:8889`: página e API usam a mesma origem, sem configurar um endereço externo. `npm start` mantém o servidor Express/MySQL antigo para uso local; não é o processo executado pela Netlify.
 
-O deploy aplica as migrações automaticamente. Não execute o antigo `sql/DDL.sql` para migrar: ele contém instruções que apagam o banco MySQL. Não há carga automática de dados de exemplo, para evitar misturar exemplos com os registros existentes.
+O deploy aplica as migrações automaticamente. Não execute o antigo `sql/DDL.sql` para migrar: ele contém instruções que apagam o banco MySQL. A segunda migração insere os três produtos e as três entradas iniciais. Como ela ocupa IDs, a importação do MySQL descrita abaixo só funciona depois de remover esses registros de exemplo.
 
 ## Migração futura do MySQL
 
