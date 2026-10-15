@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Almoxarifado — Controle de Estoque</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand">
+      <span class="stamp">SAEP</span>
+      <h1>Almoxarifado<span>.</span></h1>
+      <p>Livro de controle de estoque</p>
+    </div>
+    <dl class="kpis" aria-live="polite">
+      <div><dt>Produtos</dt><dd id="kpi-produtos">—</dd></div>
+      <div><dt>Unidades</dt><dd id="kpi-unidades">—</dd></div>
+      <div><dt>Valor em estoque</dt><dd id="kpi-valor">—</dd></div>
+    </dl>
+  </header>
+
+  <main>
+    <section class="panel span-2" aria-labelledby="t-estoque">
+      <div class="panel-head">
+        <h2 id="t-estoque"><span class="idx">01</span> Estoque atual</h2>
+        <button class="ghost" type="button" id="recarregar">Atualizar</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Produto</th><th>Categoria</th><th class="num">Qtd.</th><th class="num">Valor un.</th><th class="num">Valor total</th><th>Nível</th></tr></thead>
+          <tbody id="tabela-estoque"><tr><td colspan="7" class="empty">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="t-cadastro">
+      <h2 id="t-cadastro"><span class="idx">02</span> Novo produto</h2>
+      <form id="form-produto" class="form">
+        <label>Nome<input name="nome" required maxlength="255"></label>
+        <div class="row">
+          <label>Valor (R$)<input name="valor" type="number" step="0.01" min="0.01" required></label>
+          <label>Quantidade<input name="quantidade" type="number" step="1" min="0" required></label>
+        </div>
+        <div class="row">
+          <label>Categoria<input name="categoria" required maxlength="255" list="categorias"></label>
+          <label>Unidade<input name="unidade_medida" required maxlength="30" placeholder="unidade, pacote…"></label>
+        </div>
+        <datalist id="categorias"></datalist>
+        <button type="submit">Cadastrar produto</button>
+        <output class="msg" id="msg-produto"></output>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="t-mov">
+      <h2 id="t-mov"><span class="idx">03</span> Movimentação</h2>
+      <form id="form-mov" class="form">
+        <fieldset class="toggle">
+          <legend class="sr-only">Tipo</legend>
+          <label><input type="radio" name="tipo" value="entrada" checked><span>▲ Entrada</span></label>
+          <label><input type="radio" name="tipo" value="saida"><span>▼ Saída</span></label>
+        </fieldset>
+        <label>Produto<select name="produtos_id" id="select-produto" required></select></label>
+        <div class="row">
+          <label>Quantidade<input name="quantidade" type="number" step="1" min="1" required></label>
+          <label>Data<input name="data" type="date" required></label>
+        </div>
+        <button type="submit">Registrar</button>
+        <output class="msg" id="msg-mov"></output>
+      </form>
+    </section>
+
+    <section class="panel span-2" aria-labelledby="t-hist">
+      <h2 id="t-hist"><span class="idx">04</span> Histórico de movimentações</h2>
+      <div class="table-wrap short">
+        <table>
+          <thead><tr><th>Data</th><th>Tipo</th><th>Produto</th><th class="num">Qtd.</th></tr></thead>
+          <tbody id="tabela-mov"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="t-cat">
+      <h2 id="t-cat"><span class="idx">05</span> Valor por categoria</h2>
+      <ul class="bars" id="lista-categorias"></ul>
+    </section>
+
+    <section class="panel" aria-labelledby="t-lim">
+      <h2 id="t-lim"><span class="idx">06</span> Limites de estoque</h2>
+      <p class="hint">Produtos no mínimo (0) ou no máximo (100 unidades).</p>
+      <ul class="tags" id="lista-limites"></ul>
+    </section>
+
+    <section class="panel span-2" aria-labelledby="t-per">
+      <h2 id="t-per"><span class="idx">07</span> Relatório por período</h2>
+      <form id="form-periodo" class="form inline">
+        <label>De<input name="dataInicial" type="date" required></label>
+        <label>Até<input name="dataFinal" type="date" required></label>
+        <button type="submit">Gerar relatório</button>
+        <output class="msg" id="msg-periodo"></output>
+      </form>
+      <div class="report-grid">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Produto</th><th class="num">Entradas</th><th class="num">Saídas</th><th class="num">Saldo</th><th class="num">R$ entradas</th><th class="num">R$ saídas</th></tr></thead>
+            <tbody id="tabela-periodo"><tr><td colspan="6" class="empty">Escolha um período.</td></tr></tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Maiores saídas</h3>
+          <ol class="ranking" id="lista-maiores"></ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Dados armazenados no Netlify Database (PostgreSQL).</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

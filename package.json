@@ -4,7 +4,11 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "netlify dev --port 8889",
+    "test": "node scripts/testar-produto.js",
+    "test:unit": "node --import tsx --test tests/api.test.ts tests/database-api.test.ts tests/validation.test.ts",
+    "typecheck": "tsc -p .",
+    "db:import:mysql": "tsx scripts/importar-mysql.ts"
   },
   "dependencies": {
     "@netlify/database": "^2.0.1",
